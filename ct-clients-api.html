@@ -1,0 +1,90 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../ct-core-utils/ct-api-provider-behaviour.html">
+<link rel="import" href="../ct-core-utils/ct-user-identity.html">
+
+<!--
+`ct-clients-api`
+API for client management
+-->
+
+<dom-module id="ct-clients-api">
+  <template>
+
+    <ct-user-identity id="identity"></ct-user-identity>
+
+    <iron-ajax id="newClient"></iron-ajax>
+    <iron-ajax id="findClients"></iron-ajax>
+    <iron-ajax id="getClient"></iron-ajax>
+    <iron-ajax id="updateClient"></iron-ajax>
+    <iron-ajax id="deleteClient"></iron-ajax>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'ct-clients-api',
+      behaviors: [CT.Behaviours.ApiProvider],
+
+      /**
+       * Create a new client
+       *
+       * @param {{ Object, name: string, tokenRedirectUri: string, tokenExpirationMinutes: int, signUpGroupId: string }} newClient
+       * @returns {Promise}
+       */
+      newClient: function(newClient) {
+        this.$.newClient.url = this._url('/clients');
+        this.$.newClient.method = "POST";
+        this.$.newClient.contentType = "application/json";
+        this.$.newClient.body = newClient;
+        return this._generateRequest(this.$.newClient);
+      },
+      /**
+       * Find clients by filter values
+       *
+       * @returns {Promise}
+       */
+      findClients: function() {
+        this.$.findClients.url = this._url('/clients');
+        return this._generateRequest(this.$.findClients);
+      },
+      /**
+       * Get a client by id
+       *
+       * @param {{ String, clientId: string }} clientId
+       * @returns {Promise}
+       */
+      getClient: function(clientId) {
+        this.$.getClient.url = this._url('/clients/' + clientId);
+        return this._generateRequest(this.$.getClient);
+      },
+      /**
+       * Update a client
+       *
+       * @param {{ String, clientId: string }} clientId
+       * @param {{ Object, name: string, tokenRedirectUri: string, tokenExpirationMinutes: int, signUpGroupId: string }} newValues
+       *
+       * @returns {Promise}
+       */
+      updateClient: function(clientId, newValues) {
+        this.$.updateClient.url = this._url('/clients/' + clientId);
+        this.$.updateClient.method = "PUT";
+        this.$.updateClient.contentType = "application/json";
+        this.$.updateClient.body = newValues;
+        return this._generateRequest(this.$.updateClient);
+      },
+      /**
+       * Delete a client
+       *
+       * @param {{ String, clientId: string }} clientId
+       * @returns {Promise}
+       */
+      deleteClient: function(clientId) {
+        this.$.deleteClient.url = this._url('/clients/' + clientId);
+        this.$.deleteClient.method = "DELETE";
+        this.$.deleteClient.contentType = "application/json";
+        return this._generateRequest(this.$.deleteClient);
+      }
+    });
+  </script>
+</dom-module>
