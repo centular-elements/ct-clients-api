@@ -85,17 +85,6 @@ API for client management
         this.$.deleteClient.method = "DELETE";
         this.$.deleteClient.contentType = "application/json";
         return this._generateRequest(this.$.deleteClient);
-      },
-
-      /**
-       * Get a client's domains
-       *
-       * @param {{ String, clientId: string }} clientId
-       * @returns {Promise}
-       */
-      getClientDomains: function(clientId) {
-        this.$.getClientDomains.url = this._url('/clients/' + clientId + '/domains');
-        return this._generateRequest(this.$.getClientDomains);
       }
     });
   </script>
