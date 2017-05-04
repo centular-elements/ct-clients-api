@@ -30,7 +30,7 @@ API for client management
       /**
        * Create a new client
        *
-       * @param {{ Object, name: string, tokenRedirectUri: string, tokenExpirationMinutes: int, signUpGroupId: string }} newClient
+       * @param {{ Object, name: string, tokenRedirectUri: string, tokenExpirationMinutes: int, signUpGroupId: string, invitationsUrl: string, homeUrl: string }} newClient
        * @returns {Promise}
        */
       newClient: function(newClient) {
@@ -63,7 +63,7 @@ API for client management
        * Update a client
        *
        * @param {{ String, clientId: string }} clientId
-       * @param {{ Object, name: string, tokenRedirectUri: string, tokenExpirationMinutes: int, signUpGroupId: string }} newValues
+       * @param {{ Object, name: string, tokenRedirectUri: string, tokenExpirationMinutes: int, signUpGroupId: string, invitationsUrl: string, homeUrl: string }} newValues
        *
        * @returns {Promise}
        */
